@@ -22,12 +22,12 @@ resource "azurerm_storage_blob" "example" {
   storage_container_name = azurerm_storage_container.example.name
   type                   = "Block"
   source                 = data.archive_file.example.output_path
-  depends_on = [ data.archive_file.example ]
+  depends_on             = [data.archive_file.example]
 }
 
 data "archive_file" "example" {
-  type = "zip"
-  source_dir = "${path.module}"
+  type        = "zip"
+  source_dir  = path.module
   output_path = "${path.module}/../my-awesome-content.zip"
-  excludes = [".terraform", ".git", "tfplan", "terraform.tfstate", "terraform.tfstate.backup", ".terraform.lock.hcl"]
+  excludes    = [".terraform", ".git", "tfplan", "terraform.tfstate", "terraform.tfstate.backup", ".terraform.lock.hcl"]
 }
